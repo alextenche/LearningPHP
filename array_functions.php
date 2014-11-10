@@ -1,20 +1,44 @@
 <html>
-    <head>
-        <title>Array Functions</title>
-    </head>
-    <body>
-        <?php $array1 = array(4,8,15,16,23,42); ?>
-		
-		Count: <?php echo count($array1); ?><br />
-		Max value: <?php echo max($array1); ?><br />
-		Min value: <?php echo min($array1); ?><br />
-		<br />
-		Sort: <?php sort($array1); print_r($array1); ?><br />
-		Reverse Sort: <?php rsort($array1); print_r($array1); ?><br />
-		<br />
-		Implode: <?php echo $string1 = implode(" * ", $array1); ?><br />
-		Explode: <?php print_r(explode(" * ",$string1)); ?><br />
-		<br />
-		In array: <?php echo in_array(15,$array1); //returns T/F ?><br />
-    </body>
+	<head>
+		<title>Array Functions</title>
+	</head>
+	<body>
+	<?php
+	$numbers = array(1,2,3,4,5,6);
+	print_r($numbers);
+	echo "<br /><br />";
+	
+	// shifts first element out of an array
+	// and returns it.
+	$a = array_shift($numbers);
+	echo "a:" . $a ."<br />";
+	print_r($numbers);
+	echo "<br /><br />";
+	
+	// prepends an element to an array,
+	// returns the element count.
+	$b = array_unshift($numbers, 'first');
+	echo "b: ". $b ."<br />";
+	print_r($numbers);
+	echo "<br /><br />";
+
+	echo "<hr />";
+	
+	// pops last element out of an array
+	// and returns it.
+	$a = array_pop($numbers);
+	echo "a: " . $a ."<br />";
+	print_r($numbers);
+	echo "<br /><br />";
+	
+	// pushes an element onto the end of an array,
+	// returns the element count.
+	$b = array_push($numbers, 'last');
+	echo "b: ". $b ."<br />";
+	print_r($numbers);
+	echo "<br /><br />";
+	
+
+	?>
+	</body>
 </html>
