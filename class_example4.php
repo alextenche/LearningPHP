@@ -15,7 +15,3 @@ class Person {
 $person = new Person();
 $person->say_hello();
 $person->hello();
-
-
-
-?>

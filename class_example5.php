@@ -9,7 +9,7 @@ class Person {
 	var $leg_count = 2;
 
 	function say_hello() {
-		echo "Hello from inside the " . get_class($this). " class.<br />";
+		echo "Hello from inside the " . get_class($this). " class.<br>";
 	}
 	
 	function full_name() {
@@ -19,7 +19,7 @@ class Person {
 }
 
 $person = new Person();
-echo $person->arm_count . "<br />";
+echo $person->arm_count . "<br>";
 $person->arm_count = 3;
 $person->first_name = 'Lucy';
 $person->last_name = 'Ricardo';
@@ -28,13 +28,12 @@ $new_person = new Person();
 $new_person->first_name = 'Ethel';
 $new_person->last_name = 'Mertz';
 
-echo $person->full_name() . "<br />";
-echo $new_person->full_name() . "<br />";
+echo $person->full_name() . "<br>";
+echo $new_person->full_name() . "<br>";
 
 $vars = get_class_vars('Person');
 foreach($vars as $var=>$value){
-	echo "{$var}:{$value}<br />";
+	echo "{$var}:{$value}<br>";
 }
 
 echo property_exists('Person', 'first_name') ? 'true' : 'false';
-?>
