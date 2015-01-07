@@ -1,68 +1,146 @@
-<?php 
-	$error = "";
+<?php include("login.php"); ?>
 
-	if($_POST['submit']){
-
-		if(!$_POST['email']){
-			$error .= "<br>Please enter your email address";
-		} else {
-			if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-				$error .= "<br>Please enter a valid email address";
-			}
-		}
-		if(!$_POST['password']){
-			$error .= "<br>Please enter your password";
-		} else {
-			if(strlen($_POST['password']) < 6){
-				$error .= "<br>Please enter a password with at least 6 characters";
-			}
-			if(!preg_match('`[A-Z]`', $_POST['password'])){
-				$error .= "<br>Please include at least one capital letter in your password";
-			}
-		}
-
-		if($error) {
-			echo "There were error(s) in your signup details:".$error;
-		} else {
-
-			$link = mysqli_connect("localhost", "root", "", "diary" );
-
-			$query = "SELECT * FROM users WHERE email ='". mysqli_real_escape_string($link, $_POST['email']) ."'";
-			$result = mysqli_query($link, $query);
-			echo $results = mysqli_num_rows($result);
-
-			if($results){
-				echo "That email address is already registred. Do you want to login ?";
-			} else {
-				$the_email = mysqli_real_escape_string($link, $_POST['email']);
-				$the_password =  md5(md5($_POST['email']).$_POST['password']);
-				$query = "INSERT INTO users (email, password) VALUES ('$the_email','$the_password')";
-				mysqli_query($link, $query);
-				echo "Yo've been sign up !";
-			}
-
-
-
-		}
-
-	}
-?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Tenche Alexandru">
+	<title>theDiary</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<style type="text/css">
+		.navbar-brand{
+			font-size: 1.8em;
+		}
+		#topContainer{
+			background-image: url(images/background.jpg);
+			height: 400px;
+			width: 100%;
+			background-size: cover;
+		}
+		#topRow{
+			margin-top: 100px;
+			text-align: center;
+		}
+		h1{
+			font-size: 400%;
+			font-weight: bold;
+		}
+		p{
+			font-weight: bold;
+		}
+		.marginTop{
+			margin-top: 30px;
+		}
+		.centred{
+			text-align: center;
+		}
+		.title{
+			margin-top: 100px;
+			font-size: 300%;
+		}
+		#footer{
+			background-color: #81BEF7;
+			padding-top: 70px;
+			width: 100%;
+		}
+		.marginBottom{
+			margin-bottom: 30px;
+		}
+		.appStoreImage{
+			width: 250px;
+		}
+	</style>
 </head>
-<body>
+<body data-spy="scroll" data-target=".navbar-collapse">
 
-	<form method="post">
-		
-		<input type="email" name="email" id="email">
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
 
-		<input type="password" name="password" id="password">
+				<a href="#" class="navbar-brand">theDiary</a>
 
-		<input type="submit" name="submit" value="Sign Up">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
 
-	</form>
+			</div>
 
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+				</ul>
+
+
+
+				<form class="navbar-form navbar-right" method="post">
+
+					<div class="form-group">
+						<input type="email" class="form-control" placeholder="email" name="loginEmail" id="loginEmail" 
+						value="<?php if(isset($_POST['loginEmail'])) {echo addslashes($_POST['loginEmail']);} ?>">
+					</div>
+
+					<div class="form-group">
+						<input type="password" class="form-control" placeholder="password" name="loginPassword" id="loginPassword" 
+						value="<?php if(isset($_POST['loginPassword'])) {echo addslashes($_POST['loginPassword']);} ?>">
+					</div>
+					<input type="submit" name="submit" class="btn btn-success" value="Log In" >
+				</form>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="container contentContainer" id="topContainer">	
+
+		<div class="row">
+
+			<div class="col-md-6 col-md-offset-3" id="topRow">
+				<h1 class="marginTop">theDiary</h1>
+				<p class="lead marginTop">Your own private diary with you, wherever you go.</p>
+				<?php 
+				if($error){
+					echo '<div class="alert alert-danger">'.$error.'</div>';
+				}
+
+
+
+
+				?>
+
+				<p> Intrested? Sign up below. </p>
+
+				<form class="marginTop" method="post">
+					
+					<div class="form-group">
+						<label for="email">Email Address</label>
+						<input type="email" class="form-control" placeholder="your email address" name="email" id="email" value="<?php if(isset($_POST['email'])) {echo addslashes($_POST['email']);} ?>">
+					</div>
+
+					<div class="form-group">
+						<label for="password">Password</label>
+						<input type="password" class="form-control" placeholder="your password" name="password" id="password" value="<?php if(isset($_POST['password'])) {echo addslashes($_POST['email']);} ?>">
+					</div>
+
+					<input name="submit" class="btn btn-success btn-lg marginTop" type="submit" value="Sign Up">
+
+				</form>
+
+		</div>
+
+	</div>
+
+</div><!-- container -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	$('.contentContainer').css("min-height", $(window).height());
+</script>
 </body>
-</html>
+</html>	
