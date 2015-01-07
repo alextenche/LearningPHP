@@ -1,5 +1,7 @@
-<?php 
+<?php
+	$result="";
 	$error = "";
+	
 	if($_POST["submit"]){
 		$result = '<div class="alert alert-success">Form submitted</div>';
 
@@ -15,9 +17,22 @@
 			$error .= "<br>Please enter your comment";
 		}
 
+		if ($_POST['email']!="" AND !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) { 
+    		$error .= "<br>Please enter a valid email address";
+		}
+
 		if($error){
 			$result = '<div class="alert alert-danger">There were error(s) in your form:'.$error.'</div>';
+		} else {
+			if(mail("alex.tenche@gmail.com", "Test", "Test")){
+				$result = '<div class="alert alert-success">Thank you! Message sent. </div>';
+			} else {
+				$result = '<div class="alert alert-danger">Message was not sent:'.$error.'</div>';
+			}
+
 		}
+
+
 	}
 
 
@@ -59,12 +74,12 @@
 				<form method="post">
 					<div class="form-group">
 						<label for="name">Your Name:</label>
-						<input type="text" name="name" class="form-control" placeholder="Your Name">
+						<input type="text" name="name" class="form-control" placeholder="Your Name" value="<?php echo $_POST['name']; ?>">
 					</div>
 
 					<div class="form-group">
 						<label for="email">Your Email:</label>
-						<input type="email" name="email" class="form-control" placeholder="Your Email">
+						<input type="email" name="email" class="form-control" placeholder="Your Email" value="<?php echo $_POST['email']; ?>">
 					</div>
 
 					<div class="form-group">
