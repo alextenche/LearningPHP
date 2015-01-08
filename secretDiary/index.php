@@ -7,7 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="author" content="Tenche Alexandru">
-	<title>theDiary</title>
+	<title>theDiary - Login</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<style type="text/css">
 		.navbar-brand{
@@ -102,9 +102,13 @@
 				<h1 class="marginTop">theDiary</h1>
 				<p class="lead marginTop">Your own private diary with you, wherever you go.</p>
 				<?php 
-				if($error){
-					echo '<div class="alert alert-danger">'.$error.'</div>';
-				}
+					if($error){
+						echo '<div class="alert alert-danger">'.$error.'</div>';
+					}
+
+					if(isset($message)){
+						echo '<div class="alert alert-success">'.$message.'</div>';
+					}
 
 
 

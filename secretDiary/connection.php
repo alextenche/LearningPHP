@@ -1,1 +1,2 @@
-<?php $link = mysqli_connect("localhost", "root", "", "diary" ); ?>
+<?php 
+	$link = mysqli_connect("localhost", "root", "", "diary" );

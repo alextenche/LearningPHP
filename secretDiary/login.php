@@ -1,6 +1,13 @@
-<?php include("connection.php");
+<?php 
 	session_start();
+	include("connection.php");
 	$error = "";
+
+	if(isset($_GET['logout']) AND isset($_SESSION['id']) AND $_GET['logout'] == 1){
+		session_destroy();
+		$message = "You have been loged out. Have a nice day.";
+		session_start();
+	}
 	
 
 	if(isset($_POST['submit']) AND $_POST['submit'] == "Sign Up"){
@@ -40,9 +47,9 @@
 				echo "Yo've been sign up !";
 
 				$_SESSION['id'] = mysqli_insert_id($link);
-				print_r($_SESSION);
-
+				//print_r($_SESSION);
 				// redirect to logged in page
+				header("Location: mainPage.php");
 			}
 
 		}
@@ -62,13 +69,10 @@
 		//print_r($row);
 		if($row){
 			$_SESSION['id'] = $row['id'];
-			print_r($_SESSION['id']);
+			//print_r($_SESSION['id']);
 			// redirect to logged page
-			echo "You are logged in";
+			header("Location: mainPage.php");
 		} else {
 			$error = "We could not find a user with that email and password. Please try again.";
 		}
 	}
-
-
-?>
