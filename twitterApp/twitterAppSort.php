@@ -11,7 +11,7 @@
 
 	$connection = new TwitterOAuth($consumerKey, $consumerSecret, $accessToken, $accessSecret);
 	
-	$tweets = $connection->get("statuses/home_timeline", array("count" => 50, "exclude_replies" => true));
+	$tweets = $connection->get("statuses/home_timeline", array("count" => 10, "exclude_replies" => true));
 
 	foreach ($tweets as $tweet) {
 		if($tweet->favorite_count > 10){

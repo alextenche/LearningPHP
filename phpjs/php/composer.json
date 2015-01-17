@@ -3,8 +3,8 @@
         "slim/slim": "2.4.3"
     },
     "autoload": {
-      "psr-4": {
-        "MyApp\\": "myapp"
-      }
+    	"psr-4": {
+        	"MyApp\\": "myapp"
+      	}
     }
 }
