@@ -1,10 +1,10 @@
 <?php
 
-$file = 'filetest.txt';
+$file = 'filetest.html';
 if($handle = fopen($file, 'a')) { // overwrite
 
 	//fwrite($handle, 'abc'); // returns number of bytes or false
-	$content = "\npare ca merge";  // double quotes matter (with \n)
+	$content = "<!document! html>pare ca merge";  // double quotes matter (with \n)
 	fwrite($handle, $content);
 	
 	fclose($handle);
