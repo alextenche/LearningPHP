@@ -1,9 +1,11 @@
-<?php require_once("includes/session.php"); ?>
-<?php require_once("includes/connection.php"); ?>
-<?php require_once("includes/functions.php"); ?>
-<?php confirm_logged_in(); ?>
-<?php find_selected_page(); ?>
-<?php include("includes/header.php"); ?>
+<?php 
+	require_once("includes/session.php");
+	require_once("includes/connection.php");
+	require_once("includes/functions.php");
+	confirm_logged_in();
+	find_selected_page();
+	include("includes/header.php");?>
+	
 <table id="structure">
 	<tr>
 		<td id="navigation">

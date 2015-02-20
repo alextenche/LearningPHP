@@ -33,14 +33,14 @@
 			) VALUES (
 				'{$menu_name}', {$position}, {$visible}
 			)";
-	$result = mysql_query($query, $connection);
+	$result = mysqli_query($connection, $query);
 	if ($result) {
 		// Success!
 		redirect_to("content.php");
 	} else {
 		// Display error message.
 		echo "<p>Subject creation failed.</p>";
-		echo "<p>" . mysql_error() . "</p>";
+		echo "<p>" . mysqli_error() . "</p>";
 	}
 ?>
 

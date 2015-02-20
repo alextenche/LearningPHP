@@ -1,5 +1,4 @@
 <?php
-	// This file is the place to store all basic functions
 
 	function mysql_prep( $value ) {
 		global $connection;
@@ -26,32 +25,32 @@
 
 	function confirm_query($result_set) {
 		if (!$result_set) {
-			die("Database query failed: " . mysql_error());
+			die("Database query failed: " . mysqli_error());
 		}
 	}
+
 	
 	function get_all_subjects($public = true) {
 		global $connection;
-		$query = "SELECT * 
-				FROM subjects ";
+		$query = "SELECT * FROM subjects ";
 		if ($public) {
 			$query .= "WHERE visible = 1 ";
 		}
-		$query .= "ORDER BY position ASC";
+		$query .= " ORDER BY position ASC";
 		$subject_set = mysqli_query($connection, $query);
 		confirm_query($subject_set);
 		return $subject_set;
 	}
+
 	
 	function get_pages_for_subject($subject_id, $public = true) {
 		global $connection;
-		$query = "SELECT * 
-				FROM pages ";
+		$query = "SELECT * FROM pages ";
 		$query .= "WHERE subject_id = {$subject_id} ";
-		if ($public) {
-			$query .= "AND visible = 1 ";
+		if($public){
+			$query .= " AND visible = 1 ";
 		}
-		$query .= "ORDER BY position ASC";
+		$query .= " ORDER BY position ASC";
 		$page_set = mysqli_query($connection, $query);
 		confirm_query($page_set);
 		return $page_set;
@@ -59,13 +58,11 @@
 	
 	function get_subject_by_id($subject_id) {
 		global $connection;
-		$query = "SELECT * ";
-		$query .= "FROM subjects ";
+		$query = "SELECT * FROM subjects ";
 		$query .= "WHERE id=" . $subject_id ." ";
 		$query .= "LIMIT 1";
 		$result_set = mysqli_query($connection, $query);
 		confirm_query($result_set);
-		// REMEMBER:
 		// if no rows are returned, fetch_array will return false
 		if ($subject = mysqli_fetch_array($result_set)) {
 			return $subject;
@@ -121,15 +118,19 @@
 		$output = '<ul class="subjects">';
 		$subject_set = get_all_subjects($public);
 		while ($subject = mysqli_fetch_array($subject_set)) {
-			$output .= "<li";
-			if ($subject["id"] == $sel_subject['id']) { $output .= ' class="selected"'; }
-			$output .= '><a href="edit_subject.php?subj=' . urlencode($subject["id"]) . '">{$subject["menu_name"]}</a></li>';
+			$output .= '<li';
+			if ($subject['id'] == $sel_subject['id']){
+				$output .= ' class="selected"';
+			}
+			$output .= '><a href="edit_subject.php?subj=' . urlencode($subject["id"]) . '">'. $subject["menu_name"].'</a></li>';
 			$page_set = get_pages_for_subject($subject["id"], $public);
 			$output .= '<ul class="pages">';
 			while ($page = mysqli_fetch_array($page_set)) {
-				$output .= "<li";
-				if ($page["id"] == $sel_page['id']) { $output .= ' class="selected"'; }
-				$output .= '><a href="content.php?page=' . urlencode($page["id"]) . '">{$page["menu_name"]}</a></li>';
+				$output .= '<li';
+				if ($page['id'] == $sel_page['id']) {
+					$output .= ' class="selected"';
+				}
+				$output .= '><a href="content.php?page=' . urlencode($page["id"]) . '">'. $page["menu_name"].'</a></li>';
 			}
 			$output .= "</ul>";
 		}

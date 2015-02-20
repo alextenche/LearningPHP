@@ -32,8 +32,8 @@
 							position = {$position}, 
 							visible = {$visible} 
 						WHERE id = {$id}";
-				$result = mysql_query($query, $connection);
-				if (mysql_affected_rows() == 1) {
+				$result = mysqli_query($connection, $query);
+				if (mysqli_affected_rows() == 1) {
 					// Success
 					$message = "The subject was successfully updated.";
 				} else {
@@ -83,7 +83,7 @@
 					<select name="position">
 						<?php
 							$subject_set = get_all_subjects();
-							$subject_count = mysql_num_rows($subject_set);
+							$subject_count = mysqli_num_rows($subject_set);
 							// $subject_count + 1 b/c we are adding a subject
 							for($count=1; $count <= $subject_count+1; $count++) {
 								echo "<option value=\"{$count}\"";
@@ -115,7 +115,7 @@
 				<ul>
 <?php 
 	$subject_pages = get_pages_for_subject($sel_subject['id']);
-	while($page = mysql_fetch_array($subject_pages)) {
+	while($page = mysqli_fetch_array($subject_pages)) {
 		echo "<li><a href=\"content.php?page={$page['id']}\">
 		{$page['menu_name']}</a></li>";
 	}

@@ -20,7 +20,7 @@
 					<select name="position">
 						<?php
 							$subject_set = get_all_subjects();
-							$subject_count = mysql_num_rows($subject_set);
+							$subject_count = mysqli_num_rows($subject_set);
 							// $subject_count + 1 b/c we are adding a subject
 							for($count=1; $count <= $subject_count+1; $count++) {
 								echo "<option value=\"{$count}\">{$count}</option>";

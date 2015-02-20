@@ -6,20 +6,18 @@
 <p>Page name: <input type="text" name="menu_name" value="<?php echo $sel_page['menu_name']; ?>" id="menu_name" /></p>
 
 <p>Position: <select name="position">
-	<?php
-		if (!$new_page) {
-			$page_set = get_pages_for_subject($sel_page['subject_id']);
-			$page_count = mysql_num_rows($page_set);
-		} else {
-			$page_set = get_pages_for_subject($sel_subject['id']);
-			$page_count = mysql_num_rows($page_set) + 1;
-		}
-		for ($count=1; $count <= $page_count; $count++) {
-			echo "<option value=\"{$count}\"";
-			if ($sel_page['position'] == $count) { echo " selected"; }
-			echo ">{$count}</option>";
-		}
-	?>
+	<?php if (!$new_page) {
+		$page_set = get_pages_for_subject($sel_page['subject_id']);
+		$page_count = mysql_num_rows($page_set);
+	} else {
+		$page_set = get_pages_for_subject($sel_subject['id']);
+		$page_count = mysql_num_rows($page_set) + 1;
+	}
+	for ($count=1; $count <= $page_count; $count++) {
+		echo "<option value=\"{$count}\"";
+		if ($sel_page['position'] == $count) { echo " selected"; }
+		echo ">{$count}</option>";
+	}?>
 </select></p>
 <p>Visible: 
 	<input type="radio" name="visible" value="0"<?php 
