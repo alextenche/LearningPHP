@@ -8,10 +8,10 @@
 <p>Position: <select name="position">
 	<?php if (!$new_page) {
 		$page_set = get_pages_for_subject($sel_page['subject_id']);
-		$page_count = mysql_num_rows($page_set);
+		$page_count = mysqli_num_rows($page_set);
 	} else {
 		$page_set = get_pages_for_subject($sel_subject['id']);
-		$page_count = mysql_num_rows($page_set) + 1;
+		$page_count = mysqli_num_rows($page_set) + 1;
 	}
 	for ($count=1; $count <= $page_count; $count++) {
 		echo "<option value=\"{$count}\"";

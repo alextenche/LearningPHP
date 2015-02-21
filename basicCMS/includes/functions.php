@@ -56,11 +56,10 @@
 		return $page_set;
 	}
 	
-	function get_subject_by_id($subject_id) {
+	function get_subject_by_id($subject_id){
 		global $connection;
-		$query = "SELECT * FROM subjects ";
-		$query .= "WHERE id=" . $subject_id ." ";
-		$query .= "LIMIT 1";
+		$query = "SELECT * FROM subjects
+				  WHERE id=" . $subject_id ." LIMIT 1";
 		$result_set = mysqli_query($connection, $query);
 		confirm_query($result_set);
 		// if no rows are returned, fetch_array will return false
@@ -71,15 +70,12 @@
 		}
 	}
 
-	function get_page_by_id($page_id) {
+	function get_page_by_id($page_id){
 		global $connection;
-		$query = "SELECT * ";
-		$query .= "FROM pages ";
-		$query .= "WHERE id=" . $page_id ." ";
-		$query .= "LIMIT 1";
+		$query = "SELECT * FROM pages 
+				  WHERE id=" . $page_id ." LIMIT 1";
 		$result_set = mysqli_query($connection, $query);
 		confirm_query($result_set);
-		// REMEMBER:
 		// if no rows are returned, fetch_array will return false
 		if ($page = mysqli_fetch_array($result_set)) {
 			return $page;
