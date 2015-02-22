@@ -1,8 +1,11 @@
-<?php require_once("includes/connection.php"); ?>
-<?php require_once("includes/functions.php"); ?>
+<?php 
 
-<?php find_selected_page(); ?>
-<?php include("includes/header.php"); ?>
+require_once("includes/connection.php");
+require_once("includes/functions.php");
+
+find_selected_page();
+
+include("includes/header.php");?>
 
 <table id="structure">
 	<tr>

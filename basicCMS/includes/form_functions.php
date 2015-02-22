@@ -1,4 +1,5 @@
 <?php
+
 function check_required_fields($required_array) {
 	$field_errors = array();
 	foreach($required_array as $fieldname) {
@@ -8,6 +9,7 @@ function check_required_fields($required_array) {
 	}
 	return $field_errors;
 }
+
 
 function check_max_field_lengths($field_length_array) {
 	$field_errors = array();
@@ -25,5 +27,3 @@ function display_errors($error_array) {
 	}
 	echo "</p>";
 }
-
-?>
