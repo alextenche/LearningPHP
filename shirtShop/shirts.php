@@ -1,23 +1,24 @@
 <?php
+		
+include("inc/products.php");
 
-$products = array();
-$products[101] = "Logo Shirt, Red";
-$products[102] = "Mike the Frog Shirt, Black";
-$products[103] = "Mike the Frog Shirt, Blue";
-$products[104] = "Logo Shirt, Green";
-			
 $pageTitle = "Mike's Full Catalog of Shirts";
 $section = "shirts";
 
 include('inc/header.php'); ?>
 
-<div class="section page">
+<div class="section page shirts">
 	<div class="wrapper">
 		<h1>Mike&rsquo;s Full Catalog of Shirts</h1>
-		<ul>
-			<?php foreach($products as $product) { ?>
-				<li><?php echo $product; ?></li>
-			<?php } ?>
+		<ul class="products">
+			<?php foreach($products as $product_id => $product) { 
+				echo '<li>';
+				echo '<a href="shirt.php?id=' . $product_id . '">';
+				echo '<img src="'. $product["img"] . '" alt="' . $product["name"] . '">';
+				echo '<p>View Details</p>';
+				echo '</a>';
+				echo '</li>';
+			} ?>
 		</ul>
 	</div>
 </div>
