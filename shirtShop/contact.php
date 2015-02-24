@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: contact.php?status=thanks");
             exit;
         } else {
-            $error_message = "There was a problem sending the email: " . $mail->ErrorInf  o;
+            $error_message = "There was a problem sending the email: " . $mail->ErrorInf;
         }
     }
 }
@@ -58,7 +58,13 @@ include('inc/header.php'); ?>
         <?php if (isset($_GET["status"]) AND $_GET["status"] == "thanks") : ?>
             <p>Thanks for the email! I&rsquo;ll be in touch shortly!</p>
         <?php else : ?>
-            <p>I&rsquo;d love to hear from you! Complete the form to send me an email.</p>
+
+            <?php if(!isset($error_message)){
+                echo '<p>I&rsquo;d love to hear from you! Complete the form to send me an email.</p>';
+            } else {
+                echo '<p class="message">' . $error_message . '</p>';
+            }?>
+
             <form method="post" action="contact.php">
                 <table>
                     <tr>
