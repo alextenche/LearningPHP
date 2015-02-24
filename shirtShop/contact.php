@@ -1,16 +1,50 @@
 <?php 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST["name"];
-    $email =  $_POST["email"];
-    $message =  $_POST["message"];
-    $email_body = "";
-    $email_body = $email_body . "Name: " . $name . "\n";
-    $email_body = $email_body . "Email: " . $email . "\n";
-    $email_body = $email_body . "Message: " . $message;
-    // Send Email
-    header("Location: contact.php?status=thanks");
-    exit;
+    $name = trim($_POST["name"]);
+    $email = trim($_POST["email"]);
+    $message = trim($_POST["message"]);
+
+    if($name == "" OR $email == "" OR $message == ""){
+    	$error_message = "You must specify a value for name, email address and message.";
+    }
+
+    foreach($_POST as $value){
+    	if(stripos($value, 'Content-Type') != FALSE){
+    		$error_message = "There was a problem with the information you entered.";
+    	}
+    }
+
+    if($_POST["address"] != ""){
+    	$error_message = "Your form submission has an error.";
+    }
+
+    require_once("inc/phpmailer/class.phpmailer.php");
+    $mail = new PHPMailer();
+
+    if(!$mail->ValidateAddress($email)){
+    	$error_message = "You must specify a valid email address.";
+    }
+
+    if(!isset($error_message)){
+        $email_body = "";
+        $email_body = $email_body . "Name: " . $name . "<br>";
+        $email_body = $email_body . "Email: " . $email . "<br>";
+        $email_body = $email_body . "Message: " . $message;
+
+    	$mail->SetFrom($email, $name);
+        $address = "alex.tenche@gmail.com";
+        $mail->AddAddress($address, "Shirts 4 Mike");
+        $mail->Subject = "Shirts Shop Contact Form Submission | " . $name;
+        $mail->MsgHTML($email_body);
+
+        if($mail->Send()) {
+            header("Location: contact.php?status=thanks");
+            exit;
+        } else {
+            $error_message = "There was a problem sending the email: " . $mail->ErrorInf  o;
+        }
+    }
 }
 
 $pageTitle = "Contact Mike";
@@ -38,7 +72,14 @@ include('inc/header.php'); ?>
                     <tr>
                         <th><label for="message">Message</label></th>
                         <td><textarea name="message" id="message"></textarea></td>
-                    </tr>                    
+                    </tr>
+                    <tr style="display:none">
+                        <th><label for="address">Address</label></th>
+                        <td>
+                        	<input type="text" name="address" id="address">
+                        	<p>Humans: please leave this field blank.</p>
+                        </td>
+                    </tr>                  
                 </table>
                 <input type="submit" value="Send">
             </form>
