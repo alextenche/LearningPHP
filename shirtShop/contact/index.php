@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+require_once("../inc/config.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = trim($_POST["name"]);
@@ -9,20 +11,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     	$error_message = "You must specify a value for name, email address and message.";
     }
 
-    foreach($_POST as $value){
-    	if(stripos($value, 'Content-Type') != FALSE){
-    		$error_message = "There was a problem with the information you entered.";
-    	}
+    if(!isset($error_message)){
+        foreach($_POST as $value){
+        	if(stripos($value, 'Content-Type') != FALSE){
+        		$error_message = "There was a problem with the information you entered.";
+        	}
+        }
     }
 
-    if($_POST["address"] != ""){
+    if(!isset($error_message) && $_POST["address"] != ""){
     	$error_message = "Your form submission has an error.";
     }
 
-    require_once("inc/phpmailer/class.phpmailer.php");
+    require_once(ROOT_PATH . "inc/phpmailer/class.phpmailer.php");
     $mail = new PHPMailer();
 
-    if(!$mail->ValidateAddress($email)){
+    if(!isset($error_message) && !$mail->ValidateAddress($email)){
     	$error_message = "You must specify a valid email address.";
     }
 
@@ -39,10 +43,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->MsgHTML($email_body);
 
         if($mail->Send()) {
-            header("Location: contact.php?status=thanks");
+            header("Location: ". BASE_URL ."contact/?status=thanks");
             exit;
         } else {
-            $error_message = "There was a problem sending the email: " . $mail->ErrorInf;
+            $error_message = "There was a problem sending the email: " . $mail->ErrorInfo;
         }
     }
 }
@@ -50,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $pageTitle = "Contact Mike";
 $section = "contact";
 
-include('inc/header.php'); ?>
+include(ROOT_PATH . 'inc/header.php'); ?>
 
 <div class="section page">
     <div class="wrapper">
@@ -65,19 +69,19 @@ include('inc/header.php'); ?>
                 echo '<p class="message">' . $error_message . '</p>';
             }?>
 
-            <form method="post" action="contact.php">
+            <form method="post" action="<?php echo BASE_URL;?>contact/">
                 <table>
                     <tr>
                         <th><label for="name">Name</label></th>
-                        <td><input type="text" name="name" id="name"></td>
+                        <td><input type="text" name="name" id="name" value="<?php if(isset($name)) { echo htmlspecialchars($name); } ?>"></td>
                     </tr>
                     <tr>
                         <th><label for="email">Email</label></th>
-                        <td><input type="text" name="email" id="email"></td>
+                        <td><input type="text" name="email" id="email" value="<?php if(isset($email)) { echo htmlspecialchars($email); } ?>"></td>
                     </tr>
                     <tr>
                         <th><label for="message">Message</label></th>
-                        <td><textarea name="message" id="message"></textarea></td>
+                        <td><textarea name="message" id="message"><?php if(isset($message)) { echo htmlspecialchars($message); } ?></textarea></td>
                     </tr>
                     <tr style="display:none">
                         <th><label for="address">Address</label></th>
@@ -93,4 +97,4 @@ include('inc/header.php'); ?>
     </div><!--wrapper-->
 </div><!--section page-->
 
-<?php include('inc/footer.php') ?>
+<?php include(ROOT_PATH . 'inc/footer.php') ?>

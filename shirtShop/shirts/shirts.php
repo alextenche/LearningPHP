@@ -1,11 +1,12 @@
 <?php
-		
-include("inc/products.php");
+
+require_once("../inc/config.php");	
+require_once(ROOT_PATH . "inc/products.php");
 
 $pageTitle = "Mike's Full Catalog of Shirts";
 $section = "shirts";
 
-include('inc/header.php'); ?>
+include(ROOT_PATH . 'inc/header.php'); ?>
 
 <div class="section page shirts">
 	<div class="wrapper">
@@ -18,4 +19,4 @@ include('inc/header.php'); ?>
 	</div>
 </div>
 
-<?php include('inc/footer.php') ?>
+<?php include(ROOT_PATH . 'inc/footer.php') ?>

@@ -1,9 +1,11 @@
 <?php
 
-$pageTitle = "Unique T-shirts designed by a frog";
+require_once("inc/config.php");
+
+$pageTitle = "Unique T-shirts designed by a Kaiser Sooze";
 $section = "home";
 
-include('inc/header.php');?>
+include(ROOT_PATH . 'inc/header.php');?>
 
 <div class="section banner">
 	<div class="wrapper">
@@ -21,7 +23,7 @@ include('inc/header.php');?>
 	<div class="wrapper">
 		<h2>Mike&rsquo;s Latest Shirts</h2>
 
-		<?php include("inc/products.php"); ?>
+		<?php include(ROOT_PATH . "inc/products.php"); ?>
 
 		<ul class="products">
 			<?php $total_products = count($products);
@@ -33,9 +35,9 @@ include('inc/header.php');?>
 					$list_view_html = get_list_view_html($product_id, $product) . $list_view_html;
 				}
 			}
-			echo $list_view_html; ?>								
+			echo $list_view_html;?>								
 		</ul>
 	</div>
 </div>
 
-<?php include('inc/footer.php'); ?>
+<?php include(ROOT_PATH . 'inc/footer.php');
