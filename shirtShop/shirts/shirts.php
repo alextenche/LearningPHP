@@ -12,8 +12,8 @@ include(ROOT_PATH . 'inc/header.php'); ?>
 	<div class="wrapper">
 		<h1>Mike&rsquo;s Full Catalog of Shirts</h1>
 		<ul class="products">
-			<?php foreach($products as $product_id => $product) { 
-				echo get_list_view_html($product_id, $product);
+			<?php foreach($products as $product) { 
+				echo get_list_view_html($product);
 			} ?>
 		</ul>
 	</div>
