@@ -16,15 +16,19 @@ function get_list_view_html($product){
 function get_products_recent(){
     $recent = array();
     $all = get_products_all();
-    
+
+	$total_products = count($all);
+	$position = 0;
+	
     foreach($all as $product){
-        // if $product is one of the last four shirts{
+        $position += 1;
+					if($total_products - $position < 4){
             $recent[] = $product;
-        //}
+        }
     }
     return $recent;
-    }
 }
+
 
 
 function get_products_all(){
