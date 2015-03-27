@@ -45,20 +45,29 @@ function get_products_recent(){
 }
 
 /*
- * Loops through all the products, looking for a search term in the product names
- * @param   string   $s   the search term
- * @return  array         a list of the products that contain the search term in their names
+ * Looks for a search term in the product names
+ * @param   string    $s    the search term
+ * @return  array           a list of the products that contain the search term in their names
  */
 function get_products_search($s){
-	$results = array();
-	$all = get_products_all();
 
-	foreach($all as $product){
-		if(stripos($product["name"], $s) !== false){
-			$results[] = $product;
-		}
+	require(ROOT_PATH . "inc/database.php");
+
+	try{
+		$results = $db->prepare("SELECT name, price, img, sku, paypal 
+								 FROM products 
+								 WHERE name LIKE ?
+								 ORDER BY sku ");
+		$results->bindValue(1, "%" . $s . "%");
+		$results->execute();
+	} catch (Exception $e){
+		echo "Data could not be retrieved from the database - get_products_search($s)";
+		exit;
 	}
-	return $results;
+
+	$matches = $results->fetchAll(PDO::FETCH_ASSOC);
+	
+	return $matches;
 }
 
 /*
@@ -82,26 +91,35 @@ function get_products_count() {
 
 
 
-
-
 /*
  * Returns a specified subset of products, based on the values received,
  * using the order of the elements in the array .
- * @param    int             the position of the first product in the requested subset 
- * @param    int             the position of the last product in the requested subset 
- * @return   array           the list of products that correspond to the start and end positions
+ * @param      int             the position of the first product in the requested subset 
+ * @param      int             the position of the last product in the requested subset 
+ * @return     array           the list of products that correspond to the start and end positions
  */
 function get_products_subset($positionStart, $positionEnd){
-	$subset = array();
-	$all = get_products_all();
 
-	$position = 0;
-	foreach ($all as $product) {
-		$position += 1;
-		if($position >= $positionStart && $position <= $positionEnd){	
-			$subset[] = $product;
-		}
-	}
+	$offset = $positionStart - 1;
+	$rows = $positionEnd - $positionStart + 1;
+
+	require(ROOT_PATH . "inc/database.php");
+
+    try {
+    	$results = $db->prepare("SELECT name, price, img, sku, paypal 
+    						     FROM products 
+    						     ORDER BY sku 
+    						     LIMIT ?, ? ");
+    	$results->bindParam(1, $offset, PDO::PARAM_INT);
+    	$results->bindParam(2, $rows, PDO::PARAM_INT);
+    	$results->execute();
+    } catch (Exception $e) {
+    	echo "Data could not be retrieved from database - get_products_subset($positionStart, $positionEnd)";
+    	exit;
+    }
+
+    $subset = $results->fetchAll(PDO::FETCH_ASSOC);
+	
 	return $subset;
 }
 
