@@ -1,42 +1,38 @@
 <?php
-	$result="";
-	$error = "";
+
+$result = "";
+$error = "";
 	
-	if($_POST["submit"]){
-		$result = '<div class="alert alert-success">Form submitted</div>';
+if(isset($_POST['submit'])){
+	$result = '<div class="alert alert-success">Form submitted</div>';
 
-		if(!$_POST["name"]){
-			$error = "<br>Please enter your name";
-		}
-
-		if(!$_POST["email"]){
-			$error .= "<br>Please enter your email address";
-		}
-
-		if(!$_POST["comment"]){
-			$error .= "<br>Please enter your comment";
-		}
-
-		if ($_POST['email']!="" AND !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) { 
-    		$error .= "<br>Please enter a valid email address";
-		}
-
-		if($error){
-			$result = '<div class="alert alert-danger">There were error(s) in your form:'.$error.'</div>';
-		} else {
-			if(mail("alex.tenche@gmail.com", "Test", "Test")){
-				$result = '<div class="alert alert-success">Thank you! Message sent. </div>';
-			} else {
-				$result = '<div class="alert alert-danger">Message was not sent:'.$error.'</div>';
-			}
-
-		}
-
-
+	if(!$_POST["name"]){
+		$error = "<br>Please enter your name";
 	}
 
+	if(!$_POST["email"]){
+		$error .= "<br>Please enter your email address";
+	}
 
-?>
+	if(!$_POST["comment"]){
+		$error .= "<br>Please enter your comment";
+	}
+
+	if ($_POST['email']!="" AND !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) { 
+    	$error .= "<br>Please enter a valid email address";
+	}
+
+	if($error){
+		$result = '<div class="alert alert-danger">There were error(s) in your form:'.$error.'</div>';
+	} else {
+		if(mail("alex.tenche@gmail.com", "Test", "Test")){
+			$result = '<div class="alert alert-success">Thank you! Message sent. </div>';
+		} else {
+			$result = '<div class="alert alert-danger">Message was not sent:'.$error.'</div>';
+		}
+	}
+}?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +41,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="author" content="Tenche Alexandru">
 	<title>Contact Form</title>
-	<link href="css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<style type="text/css">
 		.emailForm{
 			border: 1px solid grey;
@@ -74,12 +72,12 @@
 				<form method="post">
 					<div class="form-group">
 						<label for="name">Your Name:</label>
-						<input type="text" name="name" class="form-control" placeholder="Your Name" value="<?php echo $_POST['name']; ?>">
+						<input type="text" name="name" class="form-control" placeholder="Your Name" value="<?php if(isset($_POST['name'])) echo $_POST['name']; ?>">
 					</div>
 
 					<div class="form-group">
 						<label for="email">Your Email:</label>
-						<input type="email" name="email" class="form-control" placeholder="Your Email" value="<?php echo $_POST['email']; ?>">
+						<input type="email" name="email" class="form-control" placeholder="Your Email" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>">
 					</div>
 
 					<div class="form-group">

@@ -8,50 +8,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="author" content="Tenche Alexandru">
 	<title>theDiary - Login</title>
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<style type="text/css">
-		.navbar-brand{
-			font-size: 1.8em;
-		}
-		#topContainer{
-			background-image: url(images/background.jpg);
-			height: 400px;
-			width: 100%;
-			background-size: cover;
-		}
-		#topRow{
-			margin-top: 100px;
-			text-align: center;
-		}
-		h1{
-			font-size: 400%;
-			font-weight: bold;
-		}
-		p{
-			font-weight: bold;
-		}
-		.marginTop{
-			margin-top: 30px;
-		}
-		.centred{
-			text-align: center;
-		}
-		.title{
-			margin-top: 100px;
-			font-size: 300%;
-		}
-		#footer{
-			background-color: #81BEF7;
-			padding-top: 70px;
-			width: 100%;
-		}
-		.marginBottom{
-			margin-bottom: 30px;
-		}
-		.appStoreImage{
-			width: 250px;
-		}
-	</style>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link href="css/main.css" rel="stylesheet">
 </head>
 <body data-spy="scroll" data-target=".navbar-collapse">
 
