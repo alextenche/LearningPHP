@@ -9,8 +9,10 @@
 	<meta name="author" content="Tenche Alexandru">
 	<title>theDiary - Login</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-	<link href="css/main.css" rel="stylesheet">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/main.css" >
 </head>
+
 <body data-spy="scroll" data-target=".navbar-collapse">
 
 	<div class="navbar navbar-inverse navbar-fixed-top">
@@ -31,8 +33,6 @@
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 				</ul>
-
-
 
 				<form class="navbar-form navbar-right" method="post">
 
@@ -67,42 +67,38 @@
 					if(isset($message)){
 						echo '<div class="alert alert-success">'.$message.'</div>';
 					}
-
-
-
-
 				?>
 
 				<p> Intrested? Sign up below. </p>
 
 				<form class="marginTop" method="post">
-					
 					<div class="form-group">
 						<label for="email">Email Address</label>
 						<input type="email" class="form-control" placeholder="your email address" name="email" id="email" value="<?php if(isset($_POST['email'])) {echo addslashes($_POST['email']);} ?>">
 					</div>
-
 					<div class="form-group">
 						<label for="password">Password</label>
 						<input type="password" class="form-control" placeholder="your password" name="password" id="password" value="<?php if(isset($_POST['password'])) {echo addslashes($_POST['email']);} ?>">
 					</div>
-
 					<input name="submit" class="btn btn-success btn-lg marginTop" type="submit" value="Sign Up">
-
 				</form>
 
-		</div>
+			</div>
+		</div><!-- end row -->
+	</div><!-- container -->
 
-	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-</div><!-- container -->
+	<script type="text/javascript">
+		$('.contentContainer').css("min-height", $(window).height());
+	</script>
 
+	<footer>
+        <a href="https://twitter.com/alexTenche"><i class="fa fa-github-square fa-2x"></i></a>&nbsp;
+        <a href="https://github.com/alextenche"><i class="fa fa-twitter-square fa-2x"></i></a>&nbsp;
+        <a id="alex" href="http://alextenche.jolinar.org"> 2015 alexTenche </a>
+	</footer>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-
-<script type="text/javascript">
-	$('.contentContainer').css("min-height", $(window).height());
-</script>
 </body>
 </html>	

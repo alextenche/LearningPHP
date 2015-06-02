@@ -2,7 +2,7 @@
 	font-size: 1.8em;
 }
 #topContainer{
-	background-image: url(images/background.jpg);
+	background-image: url(../images/background.jpg);
 	height: 400px;
 	width: 100%;
 	background-size: cover;
@@ -40,4 +40,32 @@ p{
 	width: 250px;
 }
 
+.social-icon {
+	width: 20px;
+	height: 20px;
+	margin: 0 5px;
+}
 
+footer {
+	background: black;
+	color: white;
+	text-align: center;
+	padding-top: 12px;
+	padding-bottom: 12px;
+}
+
+footer a:link {
+    color: #aaa;
+}
+
+footer a:visited {
+    color: #aaa;
+}
+
+footer a:hover  {
+    color: #4cae4c;
+}
+
+#alex{
+	vertical-align: 25%;
+}
