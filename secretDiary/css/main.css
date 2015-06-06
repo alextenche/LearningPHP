@@ -1,16 +1,24 @@
+html, body{
+	height:100%;
+}
+
 .navbar-brand{
 	font-size: 1.8em;
 }
+
 #topContainer{
-	background-image: url(../images/background.jpg);
-	height: 400px;
+	height: 100%;
 	width: 100%;
+	background-image: url(../images/background.jpg);
 	background-size: cover;
+	background-position: center;
 }
+
 #topRow{
 	margin-top: 100px;
 	text-align: center;
 }
+
 h1{
 	font-size: 400%;
 	font-weight: bold;
@@ -69,3 +77,23 @@ footer a:hover  {
 #alex{
 	vertical-align: 25%;
 }
+
+/*
+		
+		#topRow{
+			margin-top: 80px;
+			text-align: center;
+		}
+
+		#footer{
+			background-color: #81BEF7;
+			padding-top: 70px;
+			width: 100%;
+		}
+		.marginBottom{
+			margin-bottom: 30px;
+		}
+		.appStoreImage{
+			width: 250px;
+		}
+	</style>*/
