@@ -1,29 +1,61 @@
 <?php
 
-// Declare the interface 'iTemplate'
-interface iTemplate
+class Person
 {
-    public function setVariable($name, $var);
-    public function getHtml($template);
+  public $firstname;
+  public $lastname;
+
+  public function getFullName()
+  {
+    $fullname = $this->firstname . " " . $this->lastname;
+    return $fullname;
+  }
+
+  public function setFullName($aFirstname, $aLastname)
+  {
+    $this->firstname = $aFirstname;
+    $this->lastname = $aLastname;
+  }
 }
 
-// Implement the interface
-// This will work
-class Template implements iTemplate
+interface JobCodes
 {
-    private $vars = array();
+    const PAYROLL = "01";
+    const MANAGER = "02";
+    const RETAIL = "03";
+    const PROGRAMMER = "04";
+}
 
-    public function setVariable($name, $var)
+interface StandardFunctions
+{
+    public function getJobTitle($aJobCode);
+    public function showFullName();
+}
+
+class Employee extends Person implements JobCodes, StandardFunctions
+{
+    private $employeeId;
+    private $jobCode;
+
+    public function __construct($aFirstname, $aLastname, $aEmployeeId, $aJobCode)
     {
-        $this->vars[$name] = $var;
+        $this->setFullName($aFirstname, $aLastname);
+        $this->employeeId = $aEmployeeId;
+        $this->jobCode = $aJobCode;
     }
 
-    public function getHtml($template)
+    function getJobTitle($aJobCode)
     {
-        foreach($this->vars as $name => $value) {
-            $template = str_replace('{' . $name . '}', $value, $template);
-        }
 
-        return $template;
+    }
+
+    function showFullName()
+    {
+
     }
 }
+
+$myEmployee = new Employee("Alexandru", "Tenche", "1234", "04");
+$myFullname = $myEmployee->getFullName();
+
+print "<p> Hi $myFullname ! </p>";
