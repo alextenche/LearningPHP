@@ -167,3 +167,20 @@ $s[$s[1]] = '2';
 echo $s;*/
 
 // q17
+$first = 3;
+$second = 6;
+$third = 8;
+
+function Sum()
+{
+    global $second;
+
+    $second = $third - 2;
+    return $second + $first;
+}
+
+Sum();
+echo $first . "<br>";
+echo $second . "<br>";
+echo $third . "<br>";
+echo $first + $second + $third;
