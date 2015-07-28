@@ -1,7 +1,7 @@
 <?php
 
-phpinfo();
-exit;
+// phpinfo();
+// exit;
 
 mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
@@ -15,4 +15,8 @@ header('Content-Type: text/html; charset=utf-8');
   <head>
     <title>UTF-8 Test</title>
   </head>
+  <body>
+    <p> Upper: <?= mb_strtoupper($string) ?> </p>
+    <p> Count: <?= mb_strlen($string) ?></p>
+  </body>
 </html>
