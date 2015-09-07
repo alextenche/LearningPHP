@@ -2,9 +2,8 @@
   require_once('./config.php');
 
   $token  = $_POST['stripeToken'];
-  var_dump($token);
 
-  /*$customer = \Stripe\Customer::create(array(
+  $customer = \Stripe\Customer::create(array(
       'email' => 'customer@example.com',
       'card'  => $token
   ));
@@ -15,4 +14,4 @@
       'currency' => 'usd'
   ));
 
-  echo '<h1>Successfully charged $50.00!</h1>';*/
+  echo '<h1>Successfully charged $50.00!</h1>';
