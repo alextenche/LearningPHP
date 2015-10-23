@@ -44,6 +44,10 @@
 		<b>Please enter your information.</b><br/><br/>
 		<form>
 			<p>
+				<label>Email: </label>
+				<input type="text" name="data[email]" />
+			<p>
+			<p>
 				<label>First Name: </label>
 				<input type="text" name="data[firstname]" />
 			<p>
