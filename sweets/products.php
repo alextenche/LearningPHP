@@ -136,6 +136,42 @@ $products = array(
 	array('id' => 64, 'title' => 'Pop Tarts', 'link' => '430_3151480'),
 );
 $maxProducts = count($products);
+// use the "ternary" operator to check if page param is set
+$page = (isset($_GET['page'])) ? (int) $_GET['page'] : 0;
+// use "ternary" operator to check to see if page is 0
+$prev = ($page == 0) ? 0 : $page - 1;
+$next = $page + 1;
+$linesPerPage = 6;
+
+function displayProducts($page, $linesPerPage, $maxProducts, $products)
+{
+	$offset = $page * $linesPerPage;
+	$output = '';
+	for($x = 0; $x < $linesPerPage; $x++) {
+		if ($x + $offset >= $maxProducts) {
+			break;
+		}
+		$output .= '<li>';
+		$output .= '<div class="image">';
+		$output .= '<a href="detail.html">';
+		$output .= '<img src="images/' 
+				 . $products[$x + $offset]['link'] 
+				 . '.scale_20.JPG" alt="' 
+				 . $products[$x + $offset]['title'] 
+				 . '" width="190" height="130"/>';
+		$output .= '</a>';
+		$output .= '</div>';
+		$output .= '<div class="detail">';
+		$output .= '<p class="name"><a href="detail.html">'
+				 . $products[$x + $offset]['title']
+				 . '</a></p>';
+		$output .= '<p class="view"><a href="detail.html">purchase</a> | <a href="detail.html">view details >></a></p>';
+		$output .= '</div>';
+		$output .= '</li>';
+	}
+	return $output;
+}
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -206,23 +242,11 @@ $maxProducts = count($products);
 
 	<div class="product-list">
 		<h2>Our Products</h2>
-		<a class="pages" href="products.html">&lt;prev</a>
+		<a class="pages" href="products.php?page=<?php echo $prev; ?>">&lt;prev</a>
 		&nbsp;|&nbsp;
-		<a class="pages" href="products.html">next&gt;</a>
-			<ul>
-				<?php for($x = 0; $x < $maxProducts; $x++) {		?>
-				<li>
-					<div class="image">
-						<a href="detail.html">
-						<img src="images/<?php echo $products[$x]['link']; ?>.scale_20.JPG" alt="<?php echo $products[$x]['title']; ?>" width="190" height="130"/>
-						</a>
-					</div>
-					<div class="detail">
-						<p class="name"><a href="detail.html"><?php echo $products[$x]['title']; ?></a></p>
-						<p class="view"><a href="detail.html">purchase</a> | <a href="detail.html">view details >></a></p>
-					</div>
-				</li>
-				<?php }				?>
+		<a class="pages" href="products.php?page=<?php echo $next; ?>">next&gt;</a>
+		<ul>
+			<?php echo displayProducts($page, $linesPerPage, $maxProducts, $products); ?>
 		</ul>
 	</div><!-- product-list -->
 	
