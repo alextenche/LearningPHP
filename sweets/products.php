@@ -1,4 +1,6 @@
-<?php 
+<?php
+require './View/View.php';
+$view = new View();
 // titles
 $titles = array(
 	'Fudge',
@@ -142,37 +144,8 @@ $page = (isset($_GET['page'])) ? (int) $_GET['page'] : 0;
 $prev = ($page == 0) ? 0 : $page - 1;
 $next = $page + 1;
 $linesPerPage = 6;
-
-function displayProducts($page, $linesPerPage, $maxProducts, $products)
-{
-	$offset = $page * $linesPerPage;
-	$output = '';
-	for($x = 0; $x < $linesPerPage; $x++) {
-		if ($x + $offset >= $maxProducts) {
-			break;
-		}
-		$output .= '<li>';
-		$output .= '<div class="image">';
-		$output .= '<a href="detail.html">';
-		$output .= '<img src="images/' 
-				 . $products[$x + $offset]['link'] 
-				 . '.scale_20.JPG" alt="' 
-				 . $products[$x + $offset]['title'] 
-				 . '" width="190" height="130"/>';
-		$output .= '</a>';
-		$output .= '</div>';
-		$output .= '<div class="detail">';
-		$output .= '<p class="name"><a href="detail.html">'
-				 . $products[$x + $offset]['title']
-				 . '</a></p>';
-		$output .= '<p class="view"><a href="detail.html">purchase</a> | <a href="detail.html">view details >></a></p>';
-		$output .= '</div>';
-		$output .= '</li>';
-	}
-	return $output;
-}
-
 ?>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -186,7 +159,7 @@ function displayProducts($page, $linesPerPage, $maxProducts, $products)
 <body>
 <div id="wrapper">
 	<div id="maincontent">
-		
+
 	<div id="header">
 		<div id="logo" class="left">
 			<a href="index.php"><img src="images/logo.png" alt="SweetsComplete.Com"/></a>
@@ -207,7 +180,7 @@ function displayProducts($page, $linesPerPage, $maxProducts, $products)
 		<div class="banner"><p></p></div>
 		<br class="clear"/>
 	</div> <!-- header -->
-		
+
 	<div class="content">
 
 <div id="leftnav">
@@ -230,7 +203,7 @@ function displayProducts($page, $linesPerPage, $maxProducts, $products)
 			<input type="hidden" name="page" value="search" />
 		</form>
 		<br /><br />
-		
+
 		<h3>About Us</h3><br/>
 		<p class="width180">Lorem ipsum dolor sit amet consectetuer. Lorem ipsum dolor sit amet consectetuer, Lorem ipsum dolor sit amet consectetuer
 	  Lorem ipsum dolor sit amet consectetuer. Lorem ipsum dolor sit amet consectetuer. Lorem ipsum dolor sit amet consectetuer.  <a href="about.html">Read More >> </a></p>
@@ -246,16 +219,16 @@ function displayProducts($page, $linesPerPage, $maxProducts, $products)
 		&nbsp;|&nbsp;
 		<a class="pages" href="products.php?page=<?php echo $next; ?>">next&gt;</a>
 		<ul>
-			<?php echo displayProducts($page, $linesPerPage, $maxProducts, $products); ?>
+			<?php echo $view->displayProducts($page, $linesPerPage, $maxProducts, $products); ?>
 		</ul>
 	</div><!-- product-list -->
-	
-	
+
+
 </div><!-- rightnav -->
 
 <br class="clear-all"/>
 </div><!-- content -->
-	
+
 	</div><!-- maincontent -->
 
 	<div id="footer">
@@ -267,9 +240,8 @@ function displayProducts($page, $linesPerPage, $maxProducts, $products)
 			Email:sales@sweetscomplete.com</span>
 		</div>
 	div><!-- footer -->
-	
+
 </div><!-- wrapper -->
 
 </body>
 </html>
-
