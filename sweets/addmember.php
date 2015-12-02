@@ -1,5 +1,6 @@
 <?php
 // assign defaults
+$mailStatus = '';
 $data =  array('email'      => 'email',
 							 'firstname'  => 'firstname',
 							 'lastname'   => 'lastname',
@@ -46,6 +47,32 @@ if(isset($_POST['data'])) {
 	}
 }
 
+// check to see if form is valid
+$isValid = true;
+foreach ($error as $value) {
+	if($value){
+		$isValid = false;
+		break;
+	}
+}
+if($isValid){
+	require_once('Model/PHPMailer/class.phpmailer.php');
+	$address = "test@mail.com";
+	$newName = $data['firstname'] . ' ' . $data['lastname'];
+	$mail = new PHPMailer();
+	$body = "Welcome to our site. To confirm your membership just reply to this mail and it's ok :)");
+	$mail->addReplyTo($address, "Sweets Test");
+	$mail->setFrom($address, "Sweets Test");
+	$mail->addAddress($data['email'], $memberName);
+	$mail->Subject = "Sweets membership confirmation";
+	$mail->AltBody = "to view message, please use an html compatible email viewer";
+	$mail->msgHTML($body);
+	if(!$mail->Send()){
+		$mailStatus = "Mailer Error: ", $mail->ErrorInfo;
+	} else {
+		$mailStatus = "Message sent !";
+	}
+}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -58,6 +85,7 @@ if(isset($_POST['data'])) {
 <link rel="shortcut icon" href="images/favicon.ico?v=2" type="image/x-icon" />
 <style>
 	.error { color: red;}
+	.confirm { color: green;}
 </style>
 </head>
 <body>
@@ -92,7 +120,11 @@ if(isset($_POST['data'])) {
 		<h2>Sign Up</h2>
 		<br/>
 
-		<b>Please enter your information.</b><br/><br/>
+		<b>Please enter your information.</b>
+		<br>
+		<br>
+		<?php if($mailStatus) {echo '<br><b class="confirm">', $mailStatus, '</b><br>';} ?>
+		<br>
 		<form action="addmember.php" method="post">
 			<p>
 				<label>Email: </label>
