@@ -1,13 +1,17 @@
 <?php
 // assign defaults
 $mailStatus = '';
+$memberName = 'John';
 $data =  array('email'      => 'email',
 							 'firstname'  => 'firstname',
 							 'lastname'   => 'lastname',
 							 'address'    => 'address',
 							 'city'       => 'city',
 							 'postcode'   => 'postcode',
-							 'telephone'  => 'telephone'
+							 'telephone'  => 'telephone',
+							 'dobyear'    =>  0,
+							 'dobmonth'   =>  0,
+							 'dobday'     =>  0
 );
 
 $error =  array('email'      => '',
@@ -16,13 +20,30 @@ $error =  array('email'      => '',
 						 		 'address'    => '',
 								 'city'       => '',
 			    			 'postcode'   => '',
-						 		 'telephone'  => ''
+						 		 'telephone'  => '',
+								 'dob'        => ''
 );
 
 if(isset($_POST['data'])) {
 	$data = $_POST['data'];
 	foreach ($data as $key => $value) {
 		$data[$key] = strip_tags($value);
+	}
+	if( isset($data['dobyear']) && isset($data['dobmonth']) && isset($data['dobday'])){
+		try{
+			$bdateString = sprintf('%4d-%02d-%02d', $data['dobyear'], $data['dobmonth'], $data['dobday']);
+			$bdate = new DateTime($bdateString);
+			$today = new DateTime();
+			$interval21 = new DateInterval('P21Y');
+			$bdate21 = $today->sub($interval21);
+			if($bdate > $bdate21) $error['dob'] = '<b class="error"> Must be at least 21 years old !</b>';
+		} catch (Exception $e){
+			$error['dob'] = '<b class="error"> Invalid date </b>';
+			echo $e->getMessage();
+			exit;
+		}
+	} else {
+		$error['dob'] = '<b class="error"> Invalid date </b>';
 	}
 	if(!preg_match('/^[a-z][a-z0-9._-]+@(\w+\.)+[a-z]{2,6}$/i', $data['email'])){
 		$error['email'] = '<b class="error"> Invalid email address</b>';
@@ -60,7 +81,7 @@ if($isValid){
 	$address = "test@mail.com";
 	$newName = $data['firstname'] . ' ' . $data['lastname'];
 	$mail = new PHPMailer();
-	$body = "Welcome to our site. To confirm your membership just reply to this mail and it's ok :)");
+	$body = "Welcome to our site. To confirm your membership just reply to this mail and it's ok :)";
 	$mail->addReplyTo($address, "Sweets Test");
 	$mail->setFrom($address, "Sweets Test");
 	$mail->addAddress($data['email'], $memberName);
@@ -68,7 +89,7 @@ if($isValid){
 	$mail->AltBody = "to view message, please use an html compatible email viewer";
 	$mail->msgHTML($body);
 	if(!$mail->Send()){
-		$mailStatus = "Mailer Error: ", $mail->ErrorInfo;
+		$mailStatus = "Mailer Error: "; $mail->ErrorInfo;
 	} else {
 		$mailStatus = "Message sent !";
 	}
@@ -126,6 +147,31 @@ if($isValid){
 		<?php if($mailStatus) {echo '<br><b class="confirm">', $mailStatus, '</b><br>';} ?>
 		<br>
 		<form action="addmember.php" method="post">
+			<p>
+				<label> Birthdate: </label>
+				<select name="data[dobyear]">
+					<?php if($data['dobyear']) {echo '<option>', $data['dobyear'], '</option>'; } ?>
+					<?php $year = date('Y'); ?>
+					<?php for($x = $year; $x > ($year - 120); $x--){ ?>
+						<option><?php echo $x; ?></option>
+					<?php } ?>
+				</select>
+				<select name="data[dobmonth]">
+					<?php $month = array(1 => 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'); ?>
+					<?php if($data['dobmonth']) {printf('<option value="%02d">%s</option>', $data['dobmonth'], $month[(int)$data['dobmonth']]); } ?>
+					<?php for($x = 1; $x <= 12; $x++){ ?>
+						<?php printf('<option value="%02d">%s</option>', $x, $month[$x]); ?>
+						<?php echo PHP_EOL; ?>
+					<?php } ?>
+				</select>
+				<select name="data[dobday]">
+					<?php if($data['dobday']) {echo '<option>', $data['dobday'], '</option>'; } ?>
+					<?php for($x = 1; $x < 32; $x++){ ?>
+						<option><?php echo $x; ?></option>
+					<?php } ?>
+				</select>
+				<?php if($error['dob']) echo '<p>', $error['dob']; ?>
+			</p>
 			<p>
 				<label>Email: </label>
 				<input type="text" name="data[email]" value="<?php echo htmlspecialchars($data['email']); ?>" />
