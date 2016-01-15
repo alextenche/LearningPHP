@@ -15,6 +15,19 @@ $page = (isset($_GET['page'])) ? (int) $_GET['page'] : 0;
 $prev = ($page == 0) ? 0 : $page - 1;
 $next = $page + 1;
 $linesPerPage = 6;
+
+// chech status cookie
+if(isset($_COOKIE['status'])){
+	if($_COOKIE['status'] == 'SUCCESS'){
+		$message = 'Added item to cart, thanks !';
+	} elseif ($_COOKIE['status'] == 'UNSET') {
+		$message = 'Sorry, either id, quantity or price was not set !';
+	} else {
+		$message = 'Sorry, unable to add item to cart !';
+	}
+} else {
+	$message = '';
+}
 ?>
 
 <!DOCTYPE HTML>
@@ -89,6 +102,7 @@ $linesPerPage = 6;
 		<a class="pages" href="products.php?page=<?php echo $prev; ?>">&lt;prev</a>
 		&nbsp;|&nbsp;
 		<a class="pages" href="products.php?page=<?php echo $next; ?>">next&gt;</a>
+		<?php echo ($message) ? "&nbsp;&nbsp;<b>$message<br>" : ''; ?>
 		<ul>
 			<?php echo $view->displayProducts($page, $linesPerPage, $maxProducts, $products->getProducts()); ?>
 		</ul>
