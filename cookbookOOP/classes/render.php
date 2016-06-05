@@ -8,6 +8,11 @@ class Render {
     return $output;
   }
 
+  public static function listShopping($ingredient_list){
+    ksort($ingredient_list);
+    return implode("\n", array_keys($ingredient_list));
+  }
+
   public static function listIngredients($ingredients){
     $output = "";
     foreach ($ingredients as $ing) {
@@ -30,6 +35,18 @@ class Render {
     $output .= "\n";
     $output .= $recipe->getYield();
 
+    return $output;
+  }
+
+  public static function listRecipes($titles){
+    asort($titles);
+    $output = "";
+    foreach ($titles as $key => $title) {
+      if($output != ""){
+        $output .= "\n";
+      }
+      $output .= "[$key] $title";
+    }
     return $output;
   }
 
