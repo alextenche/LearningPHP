@@ -6,10 +6,9 @@ class Baseball
 {
     public function calc_avg($ab, $hits)
     {
-        if(!is_numeric($ab)){
+        if (!is_numeric($ab)) {
             $avg = "Not a number";
             return $avg;
-            exit();
         }
         if ($ab == 0) {
             $avg = "0.000";
@@ -37,12 +36,10 @@ class Baseball
             $slg = number_format((($singles * 1) + ($doubles * 2) + ($triples * 3) + ($hr * 4)) / $ab, 3);
         }
         return $slg;
-    }//end calc_slg
+    }
 
-    private function calc_ops($ab, $singles, $doubles, $triples, $hr)
+    public function calc_ops($slg, $obp)
     {
-        $slg = number_format((($singles * 1) + ($doubles * 2) + ($triples * 3) + ($hr * 4)) / $ab, 3);
-        $obp = number_format(($hits + $bb + $hp + $sac) / $ab / 3);
         $ops = $slg + $obp;
         return $ops;
     }
