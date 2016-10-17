@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Alexandru
- * Date: 02.08.2015
- * Time: 10:13
- */
 
 // report simple runnsing errors
 // error_reporting(E_ERROR | E_WARNING | E_PARSE);
