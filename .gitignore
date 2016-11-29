@@ -47,6 +47,7 @@ Temporary Items
 vendor
 /vendor/**/.git
 
+composer.lock
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio
 

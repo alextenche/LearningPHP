@@ -1,17 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Alexandru
- * Date: 02.08.2015
- * Time: 13:47
- */
 
-class Event {
+namespace TestEvent;
+
+class Event
+{
     private $name = "Alex";
 
     public function getFunction()
     {
-        return function() { return $this->name; };
+        return function () {
+            return $this->name;
+        };
     }
 }
 
