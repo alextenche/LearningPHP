@@ -17,8 +17,6 @@ function seoUrl($string)
     return $string;
 }
 
-$alexAreMere = 2;
 
 $text = "produse pentru fata mere";
-
 echo seoUrl($text);

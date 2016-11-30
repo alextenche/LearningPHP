@@ -12,11 +12,11 @@ header('Content-Type: text/html; charset=utf-8');
 ?>
 <!doctype html>
 <html>
-  <head>
+<head>
     <title>UTF-8 Test</title>
-  </head>
-  <body>
+</head>
+<body>
     <p> Upper: <?= mb_strtoupper($string) ?> </p>
     <p> Count: <?= mb_strlen($string) ?></p>
-  </body>
+</body>
 </html>

@@ -1,7 +1,6 @@
 <?php
 
 require_once('../vendor/autoload.php');
-//require_once('../vendor/stripe/stripe-php/lib/Stripe.php');
 
 $stripe = array(
   "secret_key"      => "sk_test_xGLTy8wSDjAT0urwK850iL1h",

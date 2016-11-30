@@ -1,6 +1,8 @@
 <?php
 
-$recipe1 = new Recipe();
+require_once "./Recipe.php";
+
+$recipe1 = new Cooking\Recipe();
 $recipe1->source = "Grandma Holligan";
 $recipe1->setTitle("my first recipe");
 $recipe1->addIngredient("egg", 1);

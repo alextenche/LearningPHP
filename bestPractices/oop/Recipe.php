@@ -1,6 +1,6 @@
 <?php
-
-namespace Test;
+declare(strict_types = 1);
+namespace Cooking;
 
 class Recipe
 {

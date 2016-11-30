@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Alexandru
- * Date: 03.08.2015
- * Time: 23:17
- */
 
 trait Math
 {
@@ -25,7 +19,7 @@ trait Cart
 
     public function add($item)
     {
-        array_push($this->cart,$item);
+        array_push($this->cart, $item);
     }
 
     public function getCart()
@@ -36,15 +30,14 @@ trait Cart
 
 class Product
 {
-    use Math, Cart
-    {
+    use Math, Cart {
         Cart::add insteadof Math;
     }
 }
 
 $prod = new Product();
 
-echo $prod->add(array("id"=>123, "name"=>"shirt")), "<br>";
+echo $prod->add(array("id" => 123, "name" => "shirt")), "<br>";
 
 print_r($prod->getCart());
 echo "<br>";
