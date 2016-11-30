@@ -4,6 +4,8 @@
 /*echo "0" ? false : true;
 echo "<hr><br>";*/
 
+
+die();
 // q2 - error
 /*class A{
   final function a(){

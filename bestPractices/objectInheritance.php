@@ -1,33 +1,39 @@
 <?php
 
-class Product {
-	
-	public $name = 'default_name';
-	public $price = 0;
-	public $desc ='default_description';
+class Product
+{
 
-	function __construct($name, $price, $desc){
-		$this->name = $name;
-		$this->price = $price;
-		$this->desc = $desc;
-	}
-	
-	public function getInfo(){
-		return "Product Name: " . $this->name;
-	} 
+    public $name = 'default_name';
+    public $price = 0;
+    public $desc = 'default_description';
+
+    function __construct($name, $price, $desc)
+    {
+        $this->name = $name;
+        $this->price = $price;
+        $this->desc = $desc;
+    }
+
+    public function getInfo()
+    {
+        return "Product Name: " . $this->name;
+    }
 }
 
-class Soda extends Product{
-	public $flavor;
+class Soda extends Product
+{
+    public $flavor;
 
-	function __construct($name, $price, $desc, $flavor){
-		parent::__construct($name, $price, $desc);
-		$this->flavor = $flavor;
-	}
+    function __construct($name, $price, $desc, $flavor)
+    {
+        parent::__construct($name, $price, $desc);
+        $this->flavor = $flavor;
+    }
 
-	public function getInfo(){
-		return "Product Name: " . $this->name . " Flavor: " . $this->flavor;
-	}
+    public function getInfo()
+    {
+        return "Product Name: " . $this->name . " Flavor: " . $this->flavor;
+    }
 }
 
 $shirt = new Product("Space Juice T-Shirt", 20, "Awesome Grey T-Shirt");

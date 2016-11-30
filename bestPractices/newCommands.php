@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Alexandru
- * Date: 03.08.2015
- * Time: 20:38
- */
+
 header_register_callback(rewriteHeaders());
 
 session_start();
@@ -24,4 +19,3 @@ function rewriteHeaders()
 
 $hex = hex2bin("57656c636f6d6520746f2050485020352e34");
 print_r($hex);
-

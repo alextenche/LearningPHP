@@ -8,7 +8,5 @@ $date = new DateTime('tomorrow');
 $raw = '10. 11. 1968';
 $date2 = DateTime::createFromFormat('d. m. Y', $raw);
 
-?>
-
-<p>The output date is: <?php echo $date->format("D M Y"); ?></p>
-<p>The output date is: <?php echo $date2->format("D M Y"); ?></p>
+echo "The output date is: " . $date->format("D M Y") . "\n";
+echo "The output date2 is:  " . $date2->format("D M Y") . "\n";

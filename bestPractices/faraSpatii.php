@@ -1,18 +1,23 @@
-<?php 
+<?php
 
-function seoUrl($string) {
-  	//Lower case everything
+function seoUrl($string)
+{
+    //Lower case everything
     $string = strtolower($string);
+
     //Make alphanumeric (removes all other characters)
     $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
+
     //Clean up multiple dashes or whitespaces
     $string = preg_replace("/[\s-]+/", " ", $string);
+
     //Convert whitespaces and underscore to dash
     $string = preg_replace("/[\s_]/", "-", $string);
+
     return $string;
 }
 
-$alex_are_mere = 2;
+$alexAreMere = 2;
 
 $text = "produse pentru fata mere";
 
